@@ -1,0 +1,23 @@
+AppBundle\Entity\Person:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PersonRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: '255'
+            unique: true
+            options:
+                comment: 'User email'
+        password:
+            type: string
+            length: '64'
+            options:
+                comment: 'User password'
+    lifecycleCallbacks: {  }
