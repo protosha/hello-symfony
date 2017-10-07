@@ -2,14 +2,14 @@
 
 {% block body %}
     <div class="col-md-2">
-        <form action="/login/authenticate" method="post">
+        <form action="{{ path('authenticate') }}" method="post">
             <div class="form-group">
                 <label>Username</label>
-                <input name="username" class="form-control" placeholder="Username"/>
+                <input name="_username" class="form-control" placeholder="Username"/>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input name="password" class="form-control" placeholder="Password" type="password" />
+                <input name="_password" class="form-control" placeholder="Password" type="password" />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
