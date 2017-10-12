@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -37,6 +38,15 @@ class Person implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var array
+     */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -106,12 +116,24 @@ class Person implements UserInterface, \Serializable
     }
 
     /**
+     * Set user roles
+     * @param Role[] $roles
+     * @return $this
+     */
+    public function setRoles(array $roles) {
+        foreach($roles as $role) {
+            $this->roles->add($role);
+        }
+        // for chaining
+        return $this;
+    }
+    /**
      * Get user roles
-     * @return array User roles
+     * @return Role[] roles
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles->toArray();
     }
 
     public function getSalt()

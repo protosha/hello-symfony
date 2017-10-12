@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Person;
+use AppBundle\Entity\Role;
 use AppBundle\Form\PasswordWithConfirmType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,10 +31,13 @@ class RegistrationController extends Controller
             $user->setPassword($encoded_password);
 
             // User roles
-            // TODO: сделаем роли пользователя, хранящиеся в базе
+            $doctrine = $this->getDoctrine();
+            $basic_role = $doctrine->getRepository(Role::class)
+                ->find(Role::USER_BASIC);
+            $user->setRoles([$basic_role]); // при регистрации юзер всегда базовый
 
             // Save new user
-            $em = $this->getDoctrine()->getManager();
+            $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
 

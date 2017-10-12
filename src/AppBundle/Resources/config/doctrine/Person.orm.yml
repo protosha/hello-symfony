@@ -1,13 +1,13 @@
 AppBundle\Entity\Person:
     type: entity
-    table: null
+    table: person
     repositoryClass: AppBundle\Repository\PersonRepository
     id:
         id:
             type: integer
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         email:
             type: string
@@ -20,4 +20,16 @@ AppBundle\Entity\Person:
             length: '64'
             options:
                 comment: 'User password'
+    manyToMany:
+        roles:
+            targetEntity: Role
+            inversedBy: persons
+            joinTable:
+                name: persons_roles
+                joinColumns:
+                    person_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: id
     lifecycleCallbacks: {  }
